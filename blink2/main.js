@@ -10,8 +10,8 @@ function blink (led, interval) {
   }, interval)
 }
 
-let ledA = 5 // IO5
-let ledB = 4 // IO4
+let ledA = 16 // IO16
+let ledB = 17 // IO17
 
 blink(ledA, 300)
 blink(ledB, 301)

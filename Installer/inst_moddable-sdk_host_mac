@@ -4,7 +4,7 @@
 #
 #### pre settings ####
 #
-# Set the sudo password to ./passwd file
+# Set the sudo password to ./passwd.sudo file
 INSTLR_PATH=$(cd $(dirname $0); pwd)
 PASSWD_FILE=$INSTLR_PATH/passwd.sudo
 #

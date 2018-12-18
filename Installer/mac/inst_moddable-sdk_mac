@@ -1,0 +1,105 @@
+#!/bin/sh
+#
+# "Moddable SDK / ESP32" install shell script for macOS
+#
+#### pre settings ####
+#
+# Set the sudo password to ./passwd.sudo file
+INSTLR_PATH=$(cd $(dirname $0); pwd)
+PASSWD_FILE=$INSTLR_PATH/passwd.sudo
+#
+# Set the filename of environment variables setting file for Moddable-SDK
+MODDABLE_PROFILE=~/.moddable_profile
+#
+# Set the filename of initial execution when terminal started.
+EXECUTE_PROFILE=~/.profile
+#
+# Set the using serialport. default:/dev/cu.SLAB_USBtoUART
+SERIAL_DEV=/dev/cu.SLAB_USBtoUART
+#
+echo "export UPLOAD_PORT=$SERIAL_DEV" > $MODDABLE_PROFILE
+#
+##########################
+# Host environmet set up #
+##########################
+#
+echo "\n*** Installer start Moddable-SDK ***"
+echo "\n*** Create ~/Projects folder"
+cd ~
+mkdir Projects
+#
+echo "\n*** Download the Moddable repository from github\n"
+cd ./Projects
+git clone https://github.com/Moddable-OpenSource/moddable
+#
+echo "\n*** Setup the MODDABLE environment variables"
+echo "export MODDABLE=\$HOME/Projects/moddable" >> $MODDABLE_PROFILE
+echo "export PATH=\$MODDABLE/build/bin/mac/release:\$PATH" >> $MODDABLE_PROFILE
+export MODDABLE=$HOME/Projects/moddable
+export PATH=$MODDABLE/build/bin/mac/release:$PATH
+#
+echo "\n*** Setup the Xcode for making GUI Apps"
+#
+COMMAND='xcode-select -s /Applications/Xcode.app/Contents/Developer'
+if [ -e $PASSWD_FILE ]; then
+   SUDO_PASSWD=$(cat $PASSWD_FILE)
+   echo $SUDO_PASSWD | sudo -S $COMMAND
+else
+   echo "*** Keyin sudo password"
+   sudo $COMMAND
+fi
+echo "\n\n*** Build the Moddable tools\n"
+cd $MODDABLE/build/makefiles/mac
+make
+#
+################
+# ESP32 Set up #
+################
+#
+echo "\n*** Create ~/esp32 folder"
+cd ~
+mkdir ~/esp32
+#
+echo "\n*** Download and untar the ESP32 GCC toolchain\n"
+cd ~/esp32
+wget https://dl.espressif.com/dl/xtensa-esp32-elf-osx-1.22.0-80-g6c4433a-5.2.0.tar.gz -O - | tar zx
+#
+echo "\n*** Clone the ESP-IDF repository from github\n"
+git clone --recursive https://github.com/espressif/esp-idf.git
+#
+echo "\n*** Use the 3.1 version\n"
+cd esp-idf
+git checkout release/v3.1
+git submodule update
+#
+echo "\n*** Set the IDF_PATH environment variable"
+echo "export IDF_PATH=\$HOME/esp32/esp-idf" >>  $MODDABLE_PROFILE
+export IDF_PATH=$HOME/esp32/esp-idf
+#
+echo "\n*** Install the required Python packages\n"
+cd ~/esp32
+#
+COMMAND='easy_install pip'
+COMMAND2='pip install esptool'
+if [ -e $PASSWD_FILE ]; then
+   SUDO_PASSWD=$(cat $PASSWD_FILE)
+   echo $SUDO_PASSWD | sudo -S $COMMAND
+   echo $SUDO_PASSWD | sudo -S $COMMAND2
+else
+   echo "*** Keyin sudo password"
+   sudo $COMMAND
+   sudo $COMMAND2
+fi
+echo "\n"
+python -m pip install --user -r $IDF_PATH/docs/requirements.txt
+#
+echo "\n*** Set the IDF_PATH environment variable"
+echo "export PATH=\$PATH:\$HOME/esp32/xtensa-esp32-elf/bin" >>  $MODDABLE_PROFILE
+export PATH=$PATH:$HOME/esp32/xtensa-esp32-elf/bin
+#
+# Backup $EXECUTE_PROFILE to $EXECUTE_PROFILE.org
+cp -f $EXECUTE_PROFILE $EXECUTE_PROFILE.org
+# Append command of $MODDABLE_PROFILE execution to tail of $EXECUTE_PROFILE
+echo "source $MODDABLE_PROFILE" >> $EXECUTE_PROFILE
+#
+echo "\n\n*** Finished ***"

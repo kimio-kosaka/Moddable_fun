@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# "Moddable SDK ESP8266 toolchain" install shell script for Linux
+#
+#### pre settings ####
+#
+# Set the filename of environment variables setting file for Moddable-SDK
+MODDABLE_PROFILE=~/.moddable_profile
+#
+# Set the using serialport. default:/dev/ttyUSB0
+#SERIAL_DEV=/dev/ttyUSB0
+#echo "export UPLOAD_PORT=$SERIAL_DEV" >> $MODDABLE_PROFILE
+#UPLOAD_SPEED=230400
+#echo "export UPLOAD_SPEED=$UPLOAD_SPEED" >> $MODDABLE_PROFILE
+#
+##############
+# ESP Set up #
+##############
+#
+echo "\n*** Create ~/esp folder"
+cd ~
+mkdir ~/esp
+#
+cd ~/esp
+mkdir esptool
+#
+echo "\n*** Download and untar esptool\n"
+wget https://github.com/igrr/esptool-ck/releases/download/0.4.13/esptool-0.4.13-linux64.tar.gz -O - | tar xz -C esptool --strip-components 1
+#
+echo "\n*** Download and untar the ESP GCC toolchain\n"
+wget http://www.moddable.com/private/esp8266.toolchain.linux.tgz -O - | tar zx
+#
+echo "\n*** Download and unzip the ESP8266 core for Arduino repository\n"
+wget https://github.com/esp8266/Arduino/releases/download/2.3.0/esp8266-2.3.0.zip; unzip esp8266-2.3.0.zip
+rm esp8266-2.3.0.zip
+#
+echo "\n*** Clone the ESP8266 SDK based on FreeRTOS repository from github\n"
+git clone https://github.com/espressif/ESP8266_RTOS_SDK.git
+#
+echo "\n*** Use the 3.0rc1 version\n"
+cd ESP8266_RTOS_SDK
+git checkout v3.0-rc1
+#
+echo "\n*** Finished!!! ***\n"

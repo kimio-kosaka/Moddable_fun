@@ -19,6 +19,11 @@ echo "\# $(date) " > $MODDABLE_PROFILE
 # Set the filename of initial execution when terminal started.
 EXECUTE_PROFILE=~/.bashrc
 #
+# Backup $EXECUTE_PROFILE to $EXECUTE_PROFILE.org
+cp -f $EXECUTE_PROFILE $EXECUTE_PROFILE.org
+# Append command of $MODDABLE_PROFILE execution to tail of $EXECUTE_PROFILE
+echo "source $MODDABLE_PROFILE" >> $EXECUTE_PROFILE
+#
 # Set the using serialport. default:/dev/cu.SLAB_USBtoUART。
 SERIAL_DEV=/dev/ttyUSB0
 #
@@ -103,10 +108,5 @@ python -m pip install --user -r $IDF_PATH/docs/requirements.txt
 echo "\n*** Set the IDF_PATH environment variable"
 echo "export PATH=\$PATH:\$HOME/esp32/xtensa-esp32-elf/bin" >>  $MODDABLE_PROFILE
 export PATH=$PATH:$HOME/esp32/xtensa-esp32-elf/bin
-#
-# Backup $EXECUTE_PROFILE to $EXECUTE_PROFILE.org
-cp -f $EXECUTE_PROFILE $EXECUTE_PROFILE.org
-# Append command of $MODDABLE_PROFILE execution to tail of $EXECUTE_PROFILE
-echo "source $MODDABLE_PROFILE" >> $EXECUTE_PROFILE
 #
 echo "\n*** Finished!!! ***\n"

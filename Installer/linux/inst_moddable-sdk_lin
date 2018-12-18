@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Moddable SDK インストールスクリプト for ubuntu-Linux
+# "Moddable SDK / ESP32" install shell script for Linux
 #
 #### 事前設定 ####
 #

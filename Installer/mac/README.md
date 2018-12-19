@@ -4,9 +4,8 @@
 * inst_moddable-esp_mac : ESP8288 dev.environment installer
 
 #### How to use.
-1. This shell script is required wget command. <br />
+This shell script is required wget command. <br />
 If you didn't install it yet then you must install it as below.
-
  ```
 $ brew install wget
 ```

@@ -1,4 +1,4 @@
-## Moddable SDK install shell script for Linux
+## Moddable SDK installer shell scripts for Linux
 
 * inst_moddable-sdk_lin : Host tool and ESP32 dev.environment installer
 * inst_moddable-esp_lin : ESP8288 dev.environment installer

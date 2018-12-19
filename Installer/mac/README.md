@@ -1,14 +1,14 @@
-## Moddable SDK install shell script for macOS
+## Moddable SDK installer shell scripts for macOS
 
 * inst_moddable-sdk_mac : Host tool and ESP32 dev.environment installer
 * inst_moddable-esp_mac : ESP8288 dev.environment installer
 
-#### How to use.
-This shell script is required wget command. <br />
+This shell script is required "wget" command. <br />
 If you didn't install it yet then you must install it as below.
  ```
 $ brew install wget
 ```
+#### How to use.
 1. Prepare the password file "passwd.sudo" in the same directory as "inst_moddable-sdk_mac" file
 1. Write the password of sudo-command into "passwd.sudo" file
 1. Write the serial-port setting into "inst_moddable-sdk_mac" script<br />

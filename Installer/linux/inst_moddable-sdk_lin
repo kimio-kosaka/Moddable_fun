@@ -4,9 +4,22 @@
 #
 #### 事前設定 ####
 #
-# Set the sudo password to ./passwd file
+# Set the sudo-password from ./passwd.sudo file
 INSTLR_PATH=$(cd $(dirname $0); pwd)
 PASSWD_FILE=$INSTLR_PATH/passwd.sudo
+if [ -e $PASSWD_FILE ]; then
+   SUDO_PASSWD=$(cat $PASSWD_FILE)
+   echo $SUDO_PASSWD| sudo -S ls ./ 1> /dev/null
+   if [ $? -gt 0 ]; then
+     echo "\n*** ERROR! check your 'passwd.sudo' file\n"
+     exit 1
+   else
+     echo " confirmed"
+   fi
+else
+   SUDO_PASSWD=""
+fi
+
 #
 # Set the filename of environment variables setting file for Moddable-SDK
 MODDABLE_PROFILE=~/.moddable_profile
@@ -29,22 +42,23 @@ SERIAL_DEV=/dev/ttyUSB0
 #
 echo "export UPLOAD_PORT=$SERIAL_DEV" >> $MODDABLE_PROFILE
 #
-##########################
-# Host environmet set up #
-##########################
+##############################
+# SDK Host environmet set up #
+#############################
 #
 echo "\n*** Installer start Moddable-SDK ***"
-COMMAND="apt-get install libgtk-3-dev"
-COMMAND2="apt-get install gcc git wget make libncurses-dev flex bison gperf python python-pip python-setuptools python-serial"
 #
-if [ -e $PASSWD_FILE ]; then
-   SUDO_PASSWD=$(cat $PASSWD_FILE)
-   echo $SUDO_PASSWD | sudo -S $COMMAND -y
-   echo $SUDO_PASSWD | sudo -S $COMMAND2 -y
+# Required tools etc. for build SDK host
+FILE1="libgtk-3-dev"
+FILE2="gcc git wget make libncurses-dev flex bison gperf python python-pip python-setuptools python-serial"
+# apt-get tools etc.
+if [ -n $SUDO_PASSWD ]; then
+  echo $SUDO_PASSWD | sudo -S apt-get install $FILE1 -y
+  echo $SUDO_PASSWD | sudo -S apt-get install $FILE2 -y
 else
-   echo "*** Keyin sudo password"
-   sudo $COMMAND
-   sudo $COMMAND2
+  echo "*** Keyin sudo-password"
+  sudo apt-get install $FILE1
+  sudo apt-get install $FILE2
 fi
 #
 echo "\n*** Create ~/Projects folder"
@@ -94,15 +108,15 @@ export IDF_PATH=$HOME/esp32/esp-idf
 #
 echo "\n*** Install the required Python packages\n"
 cd ~/esp32
-COMMAND="pip install esptool"
 #
-if [ -e $PASSWD_FILE ]; then
-   SUDO_PASSWD=$(cat $PASSWD_FILE)
-   echo $SUDO_PASSWD | sudo -S $COMMAND -y
+FILE1="esptool"
+if [ -n $SUDO_PASSWD ]; then
+  echo $SUDO_PASSWD | sudo -S pip install $FILE1
 else
-   echo "*** Keyin sudo password"
-   sudo $COMMAND
+  echo "*** Keyin sudo-password"
+  sudo pip install $FILE1
 fi
+#
 python -m pip install --user -r $IDF_PATH/docs/requirements.txt
 #
 echo "\n*** Set the IDF_PATH environment variable"

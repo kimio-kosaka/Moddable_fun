@@ -4,9 +4,21 @@
 #
 #### pre settings ####
 #
-# Set the sudo password to ./passwd.sudo file
+# Set the sudo-password from ./passwd.sudo file
 INSTLR_PATH=$(cd $(dirname $0); pwd)
 PASSWD_FILE=$INSTLR_PATH/passwd.sudo
+if [ -e $PASSWD_FILE ]; then
+   SUDO_PASSWD=$(cat $PASSWD_FILE)
+   echo $SUDO_PASSWD| sudo -S ls ./ 1> /dev/null
+   if [ $? -gt 0 ]; then
+     echo "\n*** ERROR! check your 'passwd.sudo' file\n"
+     exit 1
+   else
+     echo " confirmed"
+   fi
+else
+   SUDO_PASSWD=""
+fi
 #
 # Set the filename of environment variables setting file for Moddable-SDK
 MODDABLE_PROFILE=~/.moddable_profile
@@ -46,8 +58,7 @@ export PATH=$MODDABLE/build/bin/mac/release:$PATH
 echo "\n*** Setup the Xcode for making GUI Apps"
 #
 COMMAND='xcode-select -s /Applications/Xcode.app/Contents/Developer'
-if [ -e $PASSWD_FILE ]; then
-   SUDO_PASSWD=$(cat $PASSWD_FILE)
+if [ -n $SUDO_PASSWD ]; then
    echo $SUDO_PASSWD | sudo -S $COMMAND
 else
    echo "*** Keyin sudo password"
@@ -86,12 +97,11 @@ cd ~/esp32
 #
 COMMAND='easy_install pip'
 COMMAND2='pip install esptool'
-if [ -e $PASSWD_FILE ]; then
-   SUDO_PASSWD=$(cat $PASSWD_FILE)
+if [ -n $SUDO_PASSWD ]; then
    echo $SUDO_PASSWD | sudo -S $COMMAND
    echo $SUDO_PASSWD | sudo -S $COMMAND2
 else
-   echo "*** Keyin sudo password"
+   echo "*** Keyin sudo-password"
    sudo $COMMAND
    sudo $COMMAND2
 fi

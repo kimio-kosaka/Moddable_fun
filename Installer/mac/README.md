@@ -4,8 +4,14 @@
 2. inst_moddable-esp_mac : ESP8288 dev.environment installer
 
 #### How to use.
-1. Prepare the password file "passwd.sudo" in the same directory as "inst_moddable-sdk_mac"
-2. Write the password of sudo command to "passwd.sudo"
+1. This shell script is required wget command. <br />
+If you didn't install it yet then you must install it as below.
+
+ ```
+$ brew install wget
+```
+1. Prepare the password file "passwd.sudo" in the same directory as inst_moddable-sdk_mac
+1. Write the password of sudo-command to "passwd.sudo"
 3. Write the serial-port setting in "inst_moddable-sdk_mac" script.<br />
  cf. SERIAL_DEV=/dev/cu.SLAB_USBtoUART
 4. Execute "inst_moddable-sdk_mac"<br />

@@ -5,7 +5,7 @@
 #### 事前設定 ####
 #
 # Set the sudo-password from ./passwd.sudo file
-echo "\n*** Check the sudo-password\n"
+echo "\n*** Check sudo-password"
 #
 INSTLR_PATH=$(cd $(dirname $0); pwd)
 PASSWD_FILE=$INSTLR_PATH/passwd.sudo
@@ -20,6 +20,9 @@ if [ -e $PASSWD_FILE ]; then
    fi
 else
    SUDO_PASSWD=""
+   echo "\n*** 'passwd.sudo' file is none"
+   echo "\nInput password manualy when it is required"
+   echo "\n- Hit ENTER-key to continue -"; read
 fi
 #
 # Set the filename of environment variables setting file for Moddable-SDK

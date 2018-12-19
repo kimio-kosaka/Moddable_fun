@@ -5,6 +5,7 @@
 #### pre settings ####
 #
 # Set the sudo-password from ./passwd.sudo file
+echo "\n*** Check the sudo-password\n"
 INSTLR_PATH=$(cd $(dirname $0); pwd)
 PASSWD_FILE=$INSTLR_PATH/passwd.sudo
 if [ -e $PASSWD_FILE ]; then
@@ -64,7 +65,7 @@ else
    echo "*** Keyin sudo password"
    sudo $COMMAND
 fi
-echo "\n\n*** Build the Moddable tools\n"
+echo "\n*** Build the Moddable tools\n"
 cd $MODDABLE/build/makefiles/mac
 make
 #
@@ -111,7 +112,5 @@ python -m pip install --user -r $IDF_PATH/docs/requirements.txt
 echo "\n*** Set the IDF_PATH environment variable"
 echo "export PATH=\$PATH:\$HOME/esp32/xtensa-esp32-elf/bin" >>  $MODDABLE_PROFILE
 export PATH=$PATH:$HOME/esp32/xtensa-esp32-elf/bin
-#
-
 #
 echo "\n\n*** Finished ***"

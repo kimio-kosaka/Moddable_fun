@@ -10,7 +10,7 @@
  cf. SERIAL_DEV=/dev/ttyUSB0
 1. Execute "inst_moddable-sdk_lin"<br />
 1. After install finished rerun "Terminal"<br />
-And to keep security, Delete "passwd.sudo" file as soon as possible
+And Delete "passwd.sudo" file as soon as possible to keep security
 
 #### Setting file for Moddable-SDK environment
 1. The installer "inst_moddable-sdk_lin" create environment setting files ~/.moddable_profile  and modify ~/.profile

@@ -16,7 +16,7 @@ $ brew install wget
  cf. SERIAL_DEV=/dev/cu.SLAB_USBtoUART
 1. Execute "inst_moddable-sdk_mac"<br />
 1. After install finished rerun "Terminal"<br />
-And to keep security, Delete "passwd.sudo" file as soon as possible
+And Delete "passwd.sudo" file as soon as possible to keep security
 
 #### Setting file for Moddable-SDK environment
 1. The installer "inst_moddable-sdk_mac" create environment setting files ~/.moddable_profile  and modify ~/.profile

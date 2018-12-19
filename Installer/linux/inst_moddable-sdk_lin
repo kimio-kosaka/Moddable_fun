@@ -2,8 +2,6 @@
 #
 # "Moddable SDK / ESP32" install shell script for Linux
 #
-#### 事前設定 ####
-#
 # Set the sudo-password from ./passwd.sudo file
 echo "\n*** Check sudo-password"
 #

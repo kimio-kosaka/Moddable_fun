@@ -23,10 +23,9 @@ And Delete "passwd.sudo" file as soon as possible to keep security
 
 #### Verify the set up
 1. Verify the xsbug debugger
-  ```
+    ```
 $ open ${MODDABLE}/build/bin/mac/release/xsbug.app
-
-  ```
+    ```
 2. Verify the environment simulator
  ```
 $ cd ${MODDABLE}/examples/helloworld

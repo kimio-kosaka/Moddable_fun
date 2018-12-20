@@ -21,7 +21,7 @@ And Delete "passwd.sudo" file as soon as possible to keep security
   ```
 $ xsbug
   ```
-1. Verify the environment simulator
+1. Verify the simulator
  ```
 $ cd ${MODDABLE}/examples/helloworld
 $ mcconfig -d -m -p lin

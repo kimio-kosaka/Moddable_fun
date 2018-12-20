@@ -26,7 +26,7 @@ And Delete "passwd.sudo" file as soon as possible to keep security
 ```
 $ open ${MODDABLE}/build/bin/mac/release/xsbug.app
 ```
-2. Verify the environment simulator
+2. Verify the simulator
 ```
 $ cd ${MODDABLE}/examples/helloworld
 $ mcconfig -d -m -p mac

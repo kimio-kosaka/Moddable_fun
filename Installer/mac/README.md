@@ -23,17 +23,17 @@ And Delete "passwd.sudo" file as soon as possible to keep security
 
 #### Verify the set up
 1. Verify the xsbug debugger
-    ```
+```
 $ open ${MODDABLE}/build/bin/mac/release/xsbug.app
-    ```
+```
 2. Verify the environment simulator
- ```
+```
 $ cd ${MODDABLE}/examples/helloworld
 $ mcconfig -d -m -p mac
- ```
+```
 3. Verify the setup by building helloworld for the esp32 target
- ```
+```
 $ mcconfig -d -m -p esp32
- ```
+```
 
 More information is here --> ["Getting Started"ß](https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/Moddable%20SDK%20-%20Getting%20Started.md) by Moddable Tech INC.

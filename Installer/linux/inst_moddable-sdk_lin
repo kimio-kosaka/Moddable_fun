@@ -17,7 +17,7 @@ if [ -e $PASSWD_FILE ]; then
      echo " confirmed"
    fi
 else
-   SUDO_PASSWD=""
+#   SUDO_PASSWD=""
    echo "\n*** 'passwd.sudo' file is none"
    echo "\nInput password manualy when it is required"
    echo "\n- Hit ENTER-key to continue -"; read
@@ -54,13 +54,13 @@ echo "\n*** Installer start Moddable-SDK ***"
 FILE1="libgtk-3-dev"
 FILE2="gcc git wget make libncurses-dev flex bison gperf python python-pip python-setuptools python-serial"
 # apt-get tools etc.
-if [ -n $SUDO_PASSWD ]; then
-  echo $SUDO_PASSWD | sudo -S apt-get install $FILE1 -y
-  echo $SUDO_PASSWD | sudo -S apt-get install $FILE2 -y
-else
+if [ -z $SUDO_PASSWD ]; then
   echo "*** Keyin sudo-password"
   sudo apt-get install $FILE1
   sudo apt-get install $FILE2
+else
+  echo $SUDO_PASSWD | sudo -S apt-get install $FILE1 -y
+  echo $SUDO_PASSWD | sudo -S apt-get install $FILE2 -y
 fi
 #
 echo "\n*** Create ~/Projects folder"
@@ -112,11 +112,11 @@ echo "\n*** Install the required Python packages\n"
 cd ~/esp32
 #
 FILE1="esptool"
-if [ -n $SUDO_PASSWD ]; then
-  echo $SUDO_PASSWD | sudo -S pip install $FILE1
-else
+if [ -z $SUDO_PASSWD ]; then
   echo "*** Keyin sudo-password"
   sudo pip install $FILE1
+else
+  echo $SUDO_PASSWD | sudo -S pip install $FILE1
 fi
 #
 python -m pip install --user -r $IDF_PATH/docs/requirements.txt

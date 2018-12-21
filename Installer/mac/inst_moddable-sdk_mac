@@ -18,7 +18,7 @@ if [ -e $PASSWD_FILE ]; then
      echo " confirmed"
    fi
 else
-   SUDO_PASSWD=""
+#   SUDO_PASSWD=""
    echo "\n*** 'passwd.sudo' file is none"
    echo "\nInput password manualy when it is required"
    echo "\n- Hit return-key to continue -"; read
@@ -62,11 +62,11 @@ export PATH=$MODDABLE/build/bin/mac/release:$PATH
 echo "\n*** Setup the Xcode for making GUI Apps"
 #
 COMMAND='xcode-select -s /Applications/Xcode.app/Contents/Developer'
-if [ -n $SUDO_PASSWD ]; then
-   echo $SUDO_PASSWD | sudo -S $COMMAND
+if [ -z $SUDO_PASSWD ]; then
+    echo "*** Keyin sudo password"
+    sudo $COMMAND
 else
-   echo "*** Keyin sudo password"
-   sudo $COMMAND
+    echo $SUDO_PASSWD | sudo -S $COMMAND
 fi
 echo "\n*** Build the Moddable tools\n"
 cd $MODDABLE/build/makefiles/mac
@@ -101,13 +101,13 @@ cd ~/esp32
 #
 COMMAND='easy_install pip'
 COMMAND2='pip install esptool'
-if [ -n $SUDO_PASSWD ]; then
-   echo $SUDO_PASSWD | sudo -S $COMMAND
-   echo $SUDO_PASSWD | sudo -S $COMMAND2
+if [ -z $SUDO_PASSWD ]; then
+  echo "*** Keyin sudo-password"
+  sudo $COMMAND
+  sudo $COMMAND2
 else
-   echo "*** Keyin sudo-password"
-   sudo $COMMAND
-   sudo $COMMAND2
+   echo $SUDO_PASSWD | sudo -S $COMMAND
+   echo $SUDO_PASSWD | sudo -S $COMMAND2s
 fi
 echo "\n"
 python -m pip install --user -r $IDF_PATH/docs/requirements.txt

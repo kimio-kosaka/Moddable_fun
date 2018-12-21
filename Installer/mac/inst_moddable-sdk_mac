@@ -107,7 +107,7 @@ if [ -z $SUDO_PASSWD ]; then
   sudo $COMMAND2
 else
    echo $SUDO_PASSWD | sudo -S $COMMAND
-   echo $SUDO_PASSWD | sudo -S $COMMAND2s
+   echo $SUDO_PASSWD | sudo -S $COMMAND2
 fi
 echo "\n"
 python -m pip install --user -r $IDF_PATH/docs/requirements.txt

@@ -3,11 +3,15 @@
 * inst_moddable-sdk_mac : Host tool and ESP32 dev.environment installer
 * inst_moddable-esp_mac : ESP8288 dev.environment installer
 
-This shell script is required "wget" command. <br />
-If you didn't install it yet then you must install it as below.
+This shell script is required "xcode" and "wget" <br />
+If you didn't install these yet then ...
+
+* xcode: Get it at [App Store](https://www.apple.com/us/search/xcode)
+* wget: Install it as follow
  ```
 $ brew install wget
  ```
+
 #### How to use.
 1. Prepare the password file "passwd.sudo" in the same directory as "inst_moddable-sdk_mac" file
 1. Write the password of sudo-command into "passwd.sudo" file

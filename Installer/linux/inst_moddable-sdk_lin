@@ -56,8 +56,8 @@ FILE2="gcc git wget make libncurses-dev flex bison gperf python python-pip pytho
 # apt-get tools etc.
 if [ -z $SUDO_PASSWD ]; then
   echo "*** Keyin sudo-password"
-  sudo apt-get install $FILE1
-  sudo apt-get install $FILE2
+  sudo apt-get install $FILE1 -y
+  sudo apt-get install $FILE2 -y
 else
   echo $SUDO_PASSWD | sudo -S apt-get install $FILE1 -y
   echo $SUDO_PASSWD | sudo -S apt-get install $FILE2 -y

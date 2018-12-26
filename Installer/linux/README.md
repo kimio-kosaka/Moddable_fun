@@ -6,7 +6,7 @@
 #### How to use.
 1. Prepare the password file "passwd.sudo" in the same directory as "inst_moddable-sdk_lin" file
 1. Write the password of sudo command into "passwd.sudo" file
-1. Write the serial-port setting into "inst_moddable-sdk_mac" script<br />
+1. Write the serial-port setting into "inst_moddable-sdk_lin" script<br />
  cf. SERIAL_DEV=/dev/ttyUSB0
 1. Execute "inst_moddable-sdk_lin"<br />
 1. After install finished rerun "Terminal"<br />

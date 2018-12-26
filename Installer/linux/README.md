@@ -31,4 +31,4 @@ $ mcconfig -d -m -p lin
  $ mcconfig -d -m -p esp32
  ```
 
-More information is here --> ["Getting Started"](https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/Moddable%20SDK%20-%20Getting%20Started.md) by Moddable Tech INC.
+More information is here --> ["Getting Started"](https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/Moddable%20SDK%20-%20Getting%20Started.md#linux) by Moddable Tech INC.
